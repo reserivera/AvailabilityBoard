@@ -1,0 +1,51 @@
+html{
+    background: white;
+}
+body {
+  margin: 0;
+  color: darkslateblue;
+  font-size: 25px;
+}
+
+
+.grid .item {
+  background-color: red;
+}
+.grid2 .item {
+  background-color: white;
+  height: 100%;
+}
+
+/* grid that does not have any space around the borders*/
+.grid {
+  display: grid;
+  height: 20%;
+  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 100px;
+  grid-column-gap: 10px;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(auto-fill, 100px);
+ /* grid-template-rows: 100px; */
+  grid-column-gap: 10px;
+}
+
+
+.demo-layout-transparent {
+  background: url('../assets/demos/transparent.jpg') center / cover;
+}
+.demo-layout-transparent .mdl-layout__header,
+.demo-layout-transparent .mdl-layout__drawer-button {
+  /* This background is dark, so we set text to white. Use 87% black instead if
+     your background is light. */
+  color: white;
+}
+
+.md-fab-bottom-right{
+    position: fixed !important;
+}
+

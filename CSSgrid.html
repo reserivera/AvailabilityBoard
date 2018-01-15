@@ -1,0 +1,182 @@
+<html>
+    <head>
+    
+        <link href="https://fonts.googleapis.com/css?family=Montserrat|Montserrat+Alternates:600" rel="stylesheet">
+        
+        <!-- speed dial of the fab-->
+        <link rel="stylesheet" href="mdl-speed-dial.css">
+        <script src="mdl-speed-dial.js"></script>
+        
+        <!-- jquery --> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        
+        <title>Availability Board</title>
+        
+        <link rel="stylesheet" href="CSSgrid.css">
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        
+        <!-- js -->
+        <script>
+            //this gives the structure of the card
+            var Card = function(personName, typeOfAbsence, description, startDate, startTime, endDate, endTime){
+                this.personName = personName;
+                this.typeOfAbsence = typeOfAbsence;
+                this.description = description;
+                this.startDate = startDate;
+                this.startTime = startTime;
+                this.endDate = endDate;
+                this.endTime = endTime;
+            }
+            
+            //ajax to get cards from the airtable
+            //index should be the size of the table, 
+            //containerName should be the name of the div used to contain cards
+            function getCards(index, containerName){
+                var containerName = "#present-container";
+                 $.ajax({
+                    url: "https://airtable.com/tblzMwhs9MWWy6DMr/viwKgIXVsmVYIkUgD",
+                    type: "GET",
+                    success: function(data){
+                      
+                      for(var orig=0; orig<index; orig++){
+                          var new_card = document.createElement("div");
+                          var new_color = document.createElement("div");
+                          var new_personName = document.createElement("div");
+                          var new_description = document.createElement("div");
+                          $(new_card).addClass("mdl-card mdl-shadow--4dp item");
+                          $(new_color).addClass("mdl-card__media");
+                          $(new_personName).addClass("mdl-card__supporting-text");
+                          $(new_description).addClass("mdl-card__supporting-text");
+                          
+                          //new_photo.src = data[orig].thumbnailUrl + "";
+                          //$(new_pic).append(new_photo);
+                          
+                          $(new_card).append(new_color);
+                          $(new_card).append(new_personName);
+                          $(new_card).append(new_description);
+                          
+                          $(containerName).prepend(new_card);
+                          
+                          console.log(orig);
+                      }
+                    }
+                });        
+            }
+            
+            
+        </script>
+        
+    </head>
+
+
+    <body>
+    
+        <script src="mdl-speed-dial.js"></script>
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+            mdl-layout--fixed-tabs">
+              <header class="mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                  <!-- Title -->
+                  <span class="mdl-layout-title">Title</span>
+                </div>
+                
+              
+              <!-- Tabs -->
+            <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+              <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Board</a>
+              <a href="#fixed-tab-2" class="mdl-layout__tab">Calendar</a>
+              
+            </div>  
+          </header>
+          <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Title</span>
+            
+          </div>
+          <main class="mdl-layout__content">
+              <!-- FAB button with ripple 
+             <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent md-fab-bottom-right" style="bottom: 45px; right: 24px;">
+             <i class="material-icons">add</i>
+             </button>
+              
+            -->
+              
+            <div class="mdl-speed-dial mdl-speed-dial--bottom-fixed">
+                  <div class="mdl-speed-dial__options">
+                    <div class="mdl-speed-dial__option">
+                      <p class="mdl-speed-dial__tooltip">Delete</p>
+                      <a href="#" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+                        <i class="material-icons">delete</i>
+                      </a>
+                    </div>
+                    <div class="mdl-speed-dial__option">
+                      <p class="mdl-speed-dial__tooltip">Edit</p>
+                      <a href="#" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+                        <i class="material-icons">edit</i>
+                      </a>
+                    </div>
+                    <div class="mdl-speed-dial__option">
+                      <p class="mdl-speed-dial__tooltip">Add</p>
+                      <a href="#" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+                        <i class="material-icons">add</i>
+                      </a>
+                    </div>
+                  </div>
+                  <!-- Be sure to put the .mdl-speed-dial__main-fab button after the .mdl-speed-dial__options section -->
+                  <button class="mdl-speed-dial__main-fab mdl-speed-dial__main-fab--spin mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                    <i class="material-icons mdl-speed-dial_main-fab-icon mdl-speed-dial_main-fab-icon--primary">add</i>
+                    <i class="material-icons mdl-speed-dial_main-fab-icon mdl-speed-dial_main-fab-icon--secondary">create</i>
+                  </button>
+                </div>
+              
+             <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+              
+              
+                 <div class="page-content">
+              
+                <!-- Inside of the board view-->
+                <div class="grid2">
+                    <!-- Present-->
+                     <div class="item" id="present-container">Present
+                        <div class="mdl-card mdl-shadow--4dp item">
+                      <div class="mdl-card__media">_
+                      </div>
+                      <div class="mdl-card__supporting-text">
+                        John Doe
+                      </div>
+                      <div class="mdl-card__supporting-text">
+                      I don't know da wae D:
+                      </div>
+                    </div>
+
+                    </div>
+                    <!-- Absent-->
+                    <div class="item" id="absent-container">
+                    
+                    
+                    </div>
+                    <!-- Absent Soon-->
+                    <div class="item" id="absentsoon-container">
+                    
+                    
+                    </div>
+                </div>
+                                 
+              </div>
+            </section>
+            
+            <!-- Calendar view-->
+            <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+              <div class="page-content"><!-- Your content goes here --></div>
+            </section>
+           
+            
+              
+              
+          </main>
+        </div>
+     
+    </body>
+</html>
